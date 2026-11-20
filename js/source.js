@@ -1,4 +1,7 @@
 $(function () {
+    // *********************************************************************
+    // Feel free to modify/remove the JS objects below.
+    // *********************************************************************
 
     let revenueAmt = "$35,800";
     let customerNum = "1,284";
@@ -93,12 +96,6 @@ $(function () {
             "messsage": "Generate report"
         },
     ]
-
-
-    // *********************************************************************
-    // Do not modify the JS objects above. You will write your code below.
-    // *********************************************************************
-
 
     // There are 13 requirements to implement. 
     const userNameObj = $("#username");
