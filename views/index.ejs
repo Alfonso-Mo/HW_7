@@ -122,7 +122,19 @@
                                 <% }); %>
                             </tbody>
 
-                        </table>                        
+                        </table>      
+                        <div>
+                            <% if (page > 1) { %>
+                                <a href="/?page=<%= page - 1 %>">Previous</a>
+                            <% } %>
+
+                            Page <%= page %> of <%= totalPages %>
+
+                            <% if (page < totalPages) { %>
+                                <a href="/?page=<%= page + 1 %>">Next</a>
+                            <% } %>
+                        </div>
+                        
                     </section>
                 </div>
 

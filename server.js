@@ -16,9 +16,13 @@ app.set("view engine", "ejs");
 
 app.get("/", async (req, res) => {
 
+    const page = Number(req.query.page) || 1;
+    const limit = 10;
+    const offset = (page - 1) * limit;
+
     const customerNum = await pool.query("SELECT count(*) FROM customers");
 
-    const customers = await pool.query("SELECT * FROM customers ORDER BY id LIMIT $1 OFFSET $2", [10, 0]);
+    const customers = await pool.query("SELECT * FROM customers ORDER BY id LIMIT $1 OFFSET $2", [limit, offset]);
 
     const revenueAmt = await pool.query("SELECT sum(saleamount) FROM sales");
 
@@ -37,16 +41,18 @@ app.get("/", async (req, res) => {
     const tasks = await pool.query("SELECT * FROM alerts WHERE type = 'tasks'");
 
     res.render("index", {
-        customerNum: customerNum.rows[0].count,
-        customers: customers.rows,
-        revenueAmt: revenueAmt.rows[0].sum,
-        sales: sales.rows,
-        ordersAmt: ordersAmt.rows[0].count,
-        issuesAmt: issuesAmt.rows[0].count,
-        issues: issues.rows,
-        notifAmt: notifAmt.rows[0].count,
-        notifications: notifications.rows,
-        tasks: tasks.rows
+    customerNum: customerNum.rows[0].count,
+    customers: customers.rows,
+    revenueAmt: revenueAmt.rows[0].sum,
+    sales: sales.rows,
+    ordersAmt: ordersAmt.rows[0].count,
+    issuesAmt: issuesAmt.rows[0].count,
+    issues: issues.rows,
+    notifAmt: notifAmt.rows[0].count,
+    notifications: notifications.rows,
+    tasks: tasks.rows,
+    page: page,
+    totalPages: Math.ceil(customerNum.rows[0].count / limit)
     });
 });
 
