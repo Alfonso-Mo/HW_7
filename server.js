@@ -1,5 +1,8 @@
 import express from "express";
 import pg from "pg";
+import { loadEnvFile } from "node:process";
+
+loadEnvFile();
 
 const app = express();
 
